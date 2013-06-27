@@ -1,0 +1,31 @@
+@import 'nib'
+
+site_blue = #73b8c4
+site_red = #f7075e
+site_zi = #5a308d
+site_family = Helvetica, Arial, Sans-Serif;
+
+// overload the reset-font used in global-reset
+reset-font()
+  font-weight: inherit
+  font-style: inherit
+  font-family: site_family
+  font-size: 100%
+  vertical-align: baseline
+
+global-reset()
+
+a:link
+a:visited
+a:hover
+a:active
+  text-decoration none
+  cursor pointer
+
+ellipsi()
+  text-overflow ellipsis
+  overflow hidden
+  white-space nowrap
+html
+  background #f9f9f9
+@import article_list

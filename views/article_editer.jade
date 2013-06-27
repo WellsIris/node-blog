@@ -1,0 +1,7 @@
+extends layout
+
+block content	
+	form(method='post',action='/article/add')
+		input(name='title',type='text')
+		textarea(name='content')
+		input(type='submit')
