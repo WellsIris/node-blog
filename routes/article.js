@@ -12,11 +12,11 @@ var models = require('../models')
 
 // 增加新文章
 exports.add = function (req, res){
-	var a = new Article({
+	var article = new Article({
 		title		: req.body.title
 		, content	: req.body.content
 	});
-	a.save(function (err){
+	article.save(function (err){
 		if (err) console.log(err);
 		res.redirect('/');
 	});

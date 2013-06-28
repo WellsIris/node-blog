@@ -10,3 +10,4 @@ mongoose.connect(config.database_path , function(err){
 
 // models
 exports.Article = require('./article').Article;
+exports.User = require('./user').User;
