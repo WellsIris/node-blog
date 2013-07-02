@@ -26,7 +26,7 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser());
-app.use(express.session({ secret: "keyboard cat" }));
+app.use(express.cookieSession({ cookie: { path: '/', httpOnly: true, maxAge: 1000000 }, secret: "keyboard cat" }));
 app.use(app.router);
 app.use(stylus.middleware({src:__dirname + '/public',compile:compile}));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -43,11 +43,13 @@ app.get('/', routes.index);
 app.get('/articles',routes.article.getAll);
 app.get('/article/delete/:id',routes.article.del);
 app.get('/sign',routes.user.sign);
-app.post('/signup',routes.user.signup);
 app.get('/addnewarticle',routes.article.addnewartpage);
+app.post('/signup',routes.user.signup);
 app.post('/article/add', routes.article.add);
 app.post('/article/update/:id', routes.article.update);
 app.get('/users', user.list);
+app.get('/sign/ajaxsignupcheckin',user.AJAX_signup_checkin);
+
 
 http.createServer(app).listen(config.site_port, function(){
   console.log('Express server listening on port ' + config.site_port);

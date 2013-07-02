@@ -6,6 +6,7 @@
 
 var models = require('../models')
 	, Article = models.Article
+	, util = require('./util')
 	, config = require('../config').config;
 
 
@@ -56,13 +57,20 @@ exports.update = function (req, res){
 }
 
 
-// 查询文章
+
+
+/**
+ * get all article data by JSON
+ */
+
 exports.getAll = function (req, res){
+	console.log('getAll is invoke !');
 	if (req.param('id')) {
-		Article.findOne(req.param('id'),function (err, result){ returnJSON ( res, result); });
+		Article.findOne({'_id':req.param('id')},function (err, result){ util.returnJSON ( res, result); });
 	} else {
-		Article.find( {}, function (err, result){ returnJSON ( res, result); });
-	}	
+		Article.find( {}, function (err, result){ util.returnJSON ( res, result); });
+	}
+	console.log('getAll invoke success');
 }
 
 
@@ -71,12 +79,3 @@ exports.addnewartpage = function (req, res){
 }
 
 
-/**
- * express.js return json
- */
-function returnJSON( res, result){
-	res.writeHead(200,{'Content-Type': 'application/json'});
-	var value = JSON.stringify(result) || '';
-	res.write(value);
-	res.end();
-}

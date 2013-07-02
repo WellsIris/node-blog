@@ -1,9 +1,6 @@
 extends layout
 
 block content
-	script(type='text/javascript',src='javascripts/libs/tinymce/tinymce.min.js')
-	script(type='text/javascript')
-
 	form(method='post',action='/article/add')
 		input(name='title',type='text')
 		textarea(name='content')

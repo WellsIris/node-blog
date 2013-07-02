@@ -2,8 +2,11 @@ extends layout
 
 block content
 	.topbar
-		a(href='/signup') 注册
-		a(href='#') 登陆
+		- if (username)
+			span 欢迎:#{username} 
+		- else
+			a(href='/sign') 注册
+			a(href='#') 登陆
 	.leftbar 
 	.left
 	ul.middle
