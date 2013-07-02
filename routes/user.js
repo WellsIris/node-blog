@@ -14,12 +14,18 @@ exports.list = function(req, res){
 
 exports.sign = function (req, res){
 
-	res.render('signup',{
+	res.render('sign',{
 		blog_name			: config.site_name
 		, blog_description 	: config.site_description
-	})
+	});
 }
-
+exports.loginrender = function(req, res){
+	res.render('login',{
+		blog_name			: config.site_name
+		, blog_description 	: config.site_description
+		, err 				: true
+	});
+}
 
 
 exports.signup = function(req, res){	
@@ -52,8 +58,34 @@ exports.signup = function(req, res){
 	}
 }
 
-exports.loginrender = function(req, res){
-	
+exports.login = function(req, res){
+	console.log('login is invoke');
+	var useremail = req.body.useremail
+		, password = req.body.password
+		, renderlogin = function(){
+			res.render('login',{
+				blog_name			: config.site_name
+				, blog_description 	: config.site_description
+				, err 				: false
+			});
+		}
+	User.findOne({'userEmail': useremail},{},function (err, result){
+		if(err) console.log(err);
+		if (result) {
+			if (useremail == result.userEmail && password == result.password ) {
+				req.session.username = useremail;
+				res.redirect('/');
+			} else {
+				renderlogin();
+			}
+		} else {
+			renderlogin();
+		}
+	});
+}
+exports.logout = function(req, res){
+	req.session.username = null;
+	res.redirect('/');
 }
 
 
@@ -61,13 +93,14 @@ exports.loginrender = function(req, res){
  * return : 返回该邮箱是否已经被注册
  */
 exports.AJAX_signup_checkin = function(req, res){
-	var useremail 	= req.query.useremail;
-		User.findOne({'userEmail': useremail},{},function (err, result){
-			if(err) console.log(err);
-			checked = result===null ? true : false;
-			res.json({cansignin:checked});
-		});
 
+	var useremail 	= req.query.useremail;
+
+	User.findOne({'userEmail': useremail},{},function (err, result){
+		if(err) console.log(err);
+		checked = result === null ? true : false;
+		res.json({cansignin:checked});
+	});
 }
 
 

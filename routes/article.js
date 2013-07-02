@@ -6,7 +6,6 @@
 
 var models = require('../models')
 	, Article = models.Article
-	, util = require('./util')
 	, config = require('../config').config;
 
 
@@ -66,9 +65,9 @@ exports.update = function (req, res){
 exports.getAll = function (req, res){
 	console.log('getAll is invoke !');
 	if (req.param('id')) {
-		Article.findOne({'_id':req.param('id')},function (err, result){ util.returnJSON ( res, result); });
+		Article.findOne({'_id':req.param('id')},function (err, result){ res.json(result)});
 	} else {
-		Article.find( {}, function (err, result){ util.returnJSON ( res, result); });
+		Article.find( {}, function (err, result){ res.json(result)});
 	}
 	console.log('getAll invoke success');
 }

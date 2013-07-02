@@ -4,7 +4,7 @@ block content
 	.leftbar 
 	.left
 	.middle
-	form.signup(method='post',action='/signup')
+	form.login(method='post',action='/login')
 		.textinput
 			label(for='useremail'): i.icon-envelope-alt 
 			input#useremail(type='text',name='useremail',placeholder='邮箱')
@@ -12,9 +12,10 @@ block content
 		.textinput
 			label(for='password'): i.icon-lock
 			input#password(type='password',name='password',placeholder='密码')
-		input.signupbtn(type='submit',value='确认注册')
-		.errtext 输入的邮箱格式有误或该邮箱已被注册
-
+		input.signupbtn(type='submit',value='登录')
+		if err === false
+			.errtext.no_hidden 邮箱或密码不正确	
+		a.forgotpassword(href='/forgot') 忘记密码？
 	.right
 		h1.blog_name
 			a(href='/') #{blog_name}

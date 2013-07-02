@@ -11,12 +11,14 @@ var express = require('express')
 
 var app = express();
 
+// view to use nib middleware
 function compile(str, path) {
   return stylus(str)
     .set('filename', path)
     .set('compress', true)
     .use(nib());
 }
+
 // all environments
 app.set('port', process.env.PORT || config.site_port);
 app.set('views', __dirname + '/views');
@@ -42,7 +44,10 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/articles',routes.article.getAll);
 app.get('/article/delete/:id',routes.article.del);
-app.get('/sign',routes.user.sign);
+app.get('/sign',user.sign);
+app.get('/login',user.loginrender);
+app.post('/login',user.login);
+app.get('/logout',user.logout);
 app.get('/addnewarticle',routes.article.addnewartpage);
 app.post('/signup',routes.user.signup);
 app.post('/article/add', routes.article.add);
