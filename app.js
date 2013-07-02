@@ -40,19 +40,22 @@ if ('development' == app.get('env')) {
 }
 
 // Routes
-
+// about articles
 app.get('/', routes.index);
-app.get('/articles',routes.article.getAll);
+app.post('/article/add', routes.article.add);
+app.get('/addnewarticle',routes.article.addnewartpage);
 app.get('/article/delete/:id',routes.article.del);
+app.post('/article/update/:id', routes.article.update);
+app.get('/articlelist', routes.article.getAll);
+
+// about users
 app.get('/sign',user.sign);
+app.post('/signup',routes.user.signup);
 app.get('/login',user.loginrender);
 app.post('/login',user.login);
 app.get('/logout',user.logout);
-app.get('/addnewarticle',routes.article.addnewartpage);
-app.post('/signup',routes.user.signup);
-app.post('/article/add', routes.article.add);
-app.post('/article/update/:id', routes.article.update);
-app.get('/users', user.list);
+
+
 app.get('/sign/ajaxsignupcheckin',user.AJAX_signup_checkin);
 
 

@@ -8,8 +8,8 @@ $('.signup #useremail').on('blur',function(){
 
 	if (checked) {
 		$.ajax({
-			url:'/sign/ajaxsignupcheckin?useremail=' + useremail
-			, success:function(data){
+			url:'/sign/ajaxsignupcheckin?useremail=' + useremail ,
+			success:function(data){
 				checked = data.cansignin;
 				if (!checked) {
 					$('.errtext').fadeIn();

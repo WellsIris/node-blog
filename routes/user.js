@@ -5,12 +5,9 @@
 
 var models = require('../models')
 	, util = require('./util')
+	, async = require('async')
 	, User = models.User
 	, config = require('../config').config;
-
-exports.list = function(req, res){
-	res.send("respond with a resource");
-};
 
 exports.sign = function (req, res){
 
@@ -19,6 +16,7 @@ exports.sign = function (req, res){
 		, blog_description 	: config.site_description
 	});
 }
+
 exports.loginrender = function(req, res){
 	res.render('login',{
 		blog_name			: config.site_name
@@ -34,32 +32,62 @@ exports.signup = function(req, res){
 		, useremail 	= req.body.useremail
 		, password 		= req.body.password
 		, checked 		= Reg_email.test(useremail) && Reg_password.test(password);
-	console.log('checked:' + checked);
-	if (checked) {
-		User.findOne({'userEmail': useremail},{},function (err, result){
-			if(err) console.log(err);
-			if (result === null) {
+
+	// if (checked) {
+	// 	User.findOne({'userEmail': useremail},{},function (err, result){
+	// 		if(err) console.log(err);
+
+	// 		if (result === null) {
+				// var user = new User({
+				// 	userEmail 	: useremail
+				// 	, password 	: password
+				// });
+				// user.save(function(err){
+				// 	if (err) console.log(err);
+				// 	req.session.username = useremail;
+				// 	res.redirect('/');
+				// });
+	// 		} else {
+	// 			console.log('ERR: This email is occupancy');
+	// 		}
+	// 	});
+	// } else {
+	// 	res.send('can\'t signup');
+	// }
+	// 
+	async.waterfall([
+		function (callback){
+			if (checked) {
+				User.findOne({'userEmail': useremail},{},function (err, data){
+					return callback (null,data);
+				});
+			} else {
+				res.json({err:'邮箱格式不正确'});
+			}
+		},
+		function (result, callback){			
+			if (!result) {
 				var user = new User({
 					userEmail 	: useremail
 					, password 	: password
 				});
 				user.save(function(err){
 					if (err) console.log(err);
-					req.session.username = useremail;
-					res.redirect('/');
+					return callback(null, true);
 				});
-			}else{
-				console.log('ERR: This email is occupancy')
-				res.send('Sorry , this email is occupancy');
+			} else {
+				res.json({email:'邮箱被占用'});
 			}
-		});
-	} else {
-		res.send('can\'t signup');
-	}
+		}
+	],function (err,result){
+		if (result) {
+			req.session.username = useremail;
+			res.redirect('/');
+		}
+	});
 }
 
 exports.login = function(req, res){
-	console.log('login is invoke');
 	var useremail = req.body.useremail
 		, password = req.body.password
 		, renderlogin = function(){
@@ -69,6 +97,7 @@ exports.login = function(req, res){
 				, err 				: false
 			});
 		}
+
 	User.findOne({'userEmail': useremail},{},function (err, result){
 		if(err) console.log(err);
 		if (result) {
@@ -83,6 +112,7 @@ exports.login = function(req, res){
 		}
 	});
 }
+
 exports.logout = function(req, res){
 	req.session.username = null;
 	res.redirect('/');
@@ -93,9 +123,7 @@ exports.logout = function(req, res){
  * return : 返回该邮箱是否已经被注册
  */
 exports.AJAX_signup_checkin = function(req, res){
-
 	var useremail 	= req.query.useremail;
-
 	User.findOne({'userEmail': useremail},{},function (err, result){
 		if(err) console.log(err);
 		checked = result === null ? true : false;
