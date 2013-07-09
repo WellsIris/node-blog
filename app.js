@@ -55,7 +55,12 @@ app.get('/login',user.loginrender);
 app.post('/login',user.login);
 app.get('/logout',user.logout);
 
+// Dashboard
+app.get('/admin', routes.dashboard.admin);
+app.get('/siteoption', routes.dashboard.renderSiteOption);
+app.post('/siteoption', routes.dashboard.siteOption);
 
+//API
 app.get('/sign/ajaxsignupcheckin',user.AJAX_signup_checkin);
 
 

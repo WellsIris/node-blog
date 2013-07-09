@@ -2,8 +2,8 @@ extends layout
 
 block content
 	.topbar
-		if username
-			a(href='/') 欢迎#{username}
+		if useremail
+			a(href='/') 欢迎#{useremail}
 			a(href='/logout') 退出
 		else
 			a(href='/sign') 注册

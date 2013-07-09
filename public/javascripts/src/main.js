@@ -18,7 +18,7 @@ $(document).ready(function() {
 	}
 	
 	require('/javascripts/src/user.js');
-
+	require('/javascripts/src/dashlist.js');
 
 
 

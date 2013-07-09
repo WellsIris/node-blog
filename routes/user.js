@@ -59,7 +59,7 @@ exports.signup = function(req, res){
 		function (callback){
 			if (checked) {
 				User.findOne({'userEmail': useremail},{},function (err, data){
-					return callback (null,data);
+					return callback (null, data);
 				});
 			} else {
 				res.json({err:'邮箱格式不正确'});
@@ -81,7 +81,7 @@ exports.signup = function(req, res){
 		}
 	],function (err,result){
 		if (result) {
-			req.session.username = useremail;
+			req.session.useremail = useremail;
 			res.redirect('/');
 		}
 	});
