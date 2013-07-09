@@ -38,14 +38,13 @@ exports.siteOption = function (req, res) {
 			return callback(null, config);
 		},
 		function (config, callback){
-			console.log(config);
 			fs.writeFile('./config.json', JSON.stringify(config), function (err){
 				if(err) throw err;
 				return callback({success:true});
 			});
 		}
 	],function (err, result) {
-		res.json(result);
+		res.redirect('/siteoption');
 	});
 
 	
