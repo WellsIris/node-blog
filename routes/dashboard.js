@@ -5,19 +5,12 @@ var config = require('../config').config
 	, async = require('async');
 
 exports.admin = function (req, res) {
-	if (req.session.username) {
-		
-	}
-	res.render('dash_dashboard',{
-		blog_name			: config.site_name
-		, blog_description 	: config.site_description
-		, username 			: req.session.username
-	});
-}
 
+	var username = req.session.username ? req.session.username : null ;
 
-exports.renderSiteOption = function (req, res) {
-	res.render('dash_siteOption',{config:config});
+	!username ? res.render('login',{config:config,admin:true}) : function(){
+		res.render('dash_dashboard',{ config : config , username : req.session.username });
+	}();
 }
 
 exports.siteOption = function (req, res) {
@@ -39,13 +32,27 @@ exports.siteOption = function (req, res) {
 		},
 		function (config, callback){
 			fs.writeFile('./config.json', JSON.stringify(config), function (err){
-				if(err) throw err;
+				if (err) throw err;
 				return callback({success:true});
 			});
 		}
 	],function (err, result) {
+		if (err) console.log(err);
 		res.redirect('/siteoption');
 	});
+}
 
+exports.renderArticleList = function (req, res) {
+	async.waterfall([
+		function (callback){
+			models.Article.find({},function (err, data){
+				if (err) throw err ;
+				console.log(data);
+				return callback(null, data);
+			});
+		}
+	],function (err,result) {
+		res.render('dash_articleList',{articles:result});
+	});
 	
 }

@@ -5,6 +5,8 @@ block content
 	.left
 	.middle
 	form.login(method='post',action='/login')
+		if admin
+			input(type='hidden',name='admin',value='true')
 		.textinput
 			label(for='useremail'): i.icon-envelope-alt 
 			input#useremail(type='text',name='useremail',placeholder='邮箱')
@@ -18,5 +20,5 @@ block content
 		a.forgotpassword(href='/forgot') 忘记密码？
 	.right
 		h1.blog_name
-			a(href='/') #{blog_name}
-		h2.blog_description #{blog_description}
+			a(href='/') #{config.site_name}
+		h2.blog_description #{config.site_description}

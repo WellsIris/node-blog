@@ -4,9 +4,9 @@
  */
 
 
-var models = require('../models')
-	, Article = models.Article
-	, config = require('../config').config;
+var models 		= require('../models')
+	, Article 	= models.Article
+	, config 	= require('../config').config;
 
 
 
@@ -26,7 +26,6 @@ exports.add = function (req, res){
 
 // 删除文章
 exports.del = function (req, res){
-	if (req.params) {console.log(req.params)}
 	Article.remove({'_id':req.param('id')},function (err){
 		res.send(err ? 'ERR' + err : 'Delete article success!');		
 	});
@@ -42,7 +41,7 @@ exports.update = function (req, res){
 		, content	: req.body.content
 	};
 
-	Article.update({'_id':article.id},{ $set :{
+	Article.update({ '_id':article.id },{ $set :{
 		title 		: article.title
 		, content 	: article.content
 	}},false,function (err, num){
@@ -63,13 +62,11 @@ exports.update = function (req, res){
  */
 
 exports.getAll = function (req, res){
-	console.log('getAll is invoke !');
 	if (req.param('id')) {
 		Article.findOne({'_id':req.param('id')},function (err, result){ res.json(result)});
 	} else {
 		Article.find( {}, function (err, result){ res.json(result)});
 	}
-	console.log('getAll invoke success');
 }
 
 

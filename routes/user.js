@@ -10,19 +10,11 @@ var models = require('../models')
 	, config = require('../config').config;
 
 exports.sign = function (req, res){
-
-	res.render('sign',{
-		blog_name			: config.site_name
-		, blog_description 	: config.site_description
-	});
+	res.render('sign',{config:config});
 }
 
 exports.loginrender = function(req, res){
-	res.render('login',{
-		blog_name			: config.site_name
-		, blog_description 	: config.site_description
-		, err 				: true
-	});
+	res.render('login',{config:config});
 }
 
 
@@ -90,20 +82,22 @@ exports.signup = function(req, res){
 exports.login = function(req, res){
 	var useremail = req.body.useremail
 		, password = req.body.password
+		, admin = req.body.admin
 		, renderlogin = function(){
-			res.render('login',{
-				blog_name			: config.site_name
-				, blog_description 	: config.site_description
-				, err 				: false
-			});
+			res.render('login',{config : config , err: false});
 		}
+		console.log(admin);
 
 	User.findOne({'userEmail': useremail},{},function (err, result){
 		if(err) console.log(err);
 		if (result) {
 			if (useremail == result.userEmail && password == result.password ) {
 				req.session.username = useremail;
-				res.redirect('/');
+				if (admin) {
+					res.redirect('/admin');
+				}else{
+					res.redirect('/');
+				}
 			} else {
 				renderlogin();
 			}

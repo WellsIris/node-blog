@@ -46,7 +46,7 @@ app.post('/article/add', routes.article.add);
 app.get('/addnewarticle',routes.article.addnewartpage);
 app.get('/article/delete/:id',routes.article.del);
 app.post('/article/update/:id', routes.article.update);
-app.get('/articlelist', routes.article.getAll);
+// app.get('/articlelist', routes.article.getAll);
 
 // about users
 app.get('/sign',user.sign);
@@ -57,8 +57,11 @@ app.get('/logout',user.logout);
 
 // Dashboard
 app.get('/admin', routes.dashboard.admin);
-app.get('/siteoption', routes.dashboard.renderSiteOption);
+app.get('/siteoption', function (req, res){ 
+  res.render('dash_siteOption',{config:config});
+});
 app.post('/siteoption', routes.dashboard.siteOption);
+app.get('/articleslist',routes.dashboard.renderArticleList);
 
 //API
 app.get('/sign/ajaxsignupcheckin',user.AJAX_signup_checkin);

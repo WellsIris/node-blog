@@ -1,12 +1,11 @@
 ﻿$(function() {
-	// Ztree Nodes
   var zTreeNodes = [
     {'name':'全局设置',nodes:[
       {'name':'整站设置','url':'/siteoption','target':'_self'}
     ]}, 
     {'name':'文章设置',nodes:[
-      {'name':'添加文章','url':'#','target':'_self'},
-      {'name':'文章列表','url':'#','target':'_self'}
+      {'name':'添加文章','url':'/addnewarticle','target':'_self'},
+      {'name':'文章列表','url':'/articleslist','target':'_self'}
     ]},
     {'name':'用户设置',nodes:[
       {'name':'用户列表','url':'#','target':'_self'},

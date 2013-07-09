@@ -1,5 +1,5 @@
-var fs = require('fs');
+var fs 			= require('fs');
 
-var config = fs.readFileSync('./config.json');
-console.log(JSON.parse(config));
-exports.config = JSON.parse(config);
+var config 		= fs.readFileSync('./config.json');
+
+exports.config 	= JSON.parse(config);

@@ -15,7 +15,7 @@ exports.index = function(req, res){
 			blog_name			: config.site_name
 			, blog_description 	: config.site_description
 			, articles 			: result
-			, useremail			: req.session.useremail
+			, username			: req.session.username
 		});
 	});
 };

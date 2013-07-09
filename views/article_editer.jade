@@ -1,7 +1,8 @@
-extends layout
+extends dash_layout
 
-block content
+block dash
 	form(method='post',action='/article/add')
-		input(name='title',type='text')
+		label(for='title',) 文章标题
+			input(id='title',name='title',type='text')
 		textarea(name='content')
 		input(type='submit')
