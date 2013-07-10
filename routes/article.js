@@ -36,7 +36,7 @@ exports.del = function (req, res){
 // 修改文章
 exports.update = function (req, res){
 	var article = {
-		id 			: req.body.id
+		id 			: req.param('id')
 		, title		: req.body.title
 		, content	: req.body.content
 	};
@@ -45,12 +45,9 @@ exports.update = function (req, res){
 		title 		: article.title
 		, content 	: article.content
 	}},false,function (err, num){
-		if (err) {
-			console.log(err);
-			res.send('update article ERR:' + err );
-		} else {
-			res.send(num + 'article update success!');
-		}		
+		if (err) throw err;
+		console.log(num + 'article is update !');
+		res.redirect('/edit/'+article.id);
 	});
 }
 

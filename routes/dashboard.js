@@ -47,12 +47,26 @@ exports.renderArticleList = function (req, res) {
 		function (callback){
 			models.Article.find({},function (err, data){
 				if (err) throw err ;
-				console.log(data);
 				return callback(null, data);
 			});
 		}
 	],function (err,result) {
 		res.render('dash_articleList',{articles:result});
 	});
-	
+}
+
+exports.renderArticleEdit = function(req, res){
+	var aid = req.param('id');
+	async.waterfall([
+		function (callback){
+			models.Article.findOne({'_id': aid},{},function (err,data){
+				if (err) throw err ;
+				return callback(null,data);
+			});
+		}
+	],function (err, result){
+		console.log(result);
+		if (err) throw err ;
+		res.render('article_editer',{article:result});
+	});
 }

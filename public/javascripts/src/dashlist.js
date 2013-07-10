@@ -1,4 +1,4 @@
-﻿$(function() {
+﻿jQuery(document).ready(function($) {
   var zTreeNodes = [
     {'name':'全局设置',nodes:[
       {'name':'整站设置','url':'/siteoption','target':'_self'}
@@ -17,6 +17,8 @@
     ]}
   ];
   // ztree settings:
-	var settings = {};
-	var zTree = $('#tree').zTree(settings,zTreeNodes);
+  var settings = {};
+  if ($('#tree').length!=0) {
+    $('#tree').zTree(settings,zTreeNodes);
+  }
 });

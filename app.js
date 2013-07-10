@@ -62,7 +62,8 @@ app.get('/siteoption', function (req, res){
 });
 app.post('/siteoption', routes.dashboard.siteOption);
 app.get('/articleslist',routes.dashboard.renderArticleList);
-
+app.get('/edit/:id',routes.dashboard.renderArticleEdit);
+app.post('/article/edit/:id',routes.article.update)
 //API
 app.get('/sign/ajaxsignupcheckin',user.AJAX_signup_checkin);
 

@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	
+
 	if (tinyMCE !== undefined) {
 		tinyMCE.init({ 
 			selector: 'textarea'
@@ -11,8 +13,12 @@ $(document).ready(function() {
 	   		]
 		}); 
 	}
-	
+	// SetTinyMceContent('textcontent',$('#content').html());
 
+	// function SetTinyMceContent(editorId,content){
+ //      tinyMCE.getInstanceById(editorId).getBody().innerHTML=content;
+ //  }
+ 	console.log(tinyMCE.getInstanceById);
 	function require (src){
 		$('body').append('<script type="text/javascript" src="'+ src +'"><\/script>');
 	}

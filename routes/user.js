@@ -1,13 +1,9 @@
 
-/*
- * GET users listing.
- */
-
-var models = require('../models')
-	, util = require('./util')
-	, async = require('async')
-	, User = models.User
-	, config = require('../config').config;
+var models 		= require('../models')
+	, util		= require('./util')
+	, async 	= require('async')
+	, User 		= models.User
+	, config	= require('../config').config;
 
 exports.sign = function (req, res){
 	res.render('sign',{config:config});
@@ -80,13 +76,12 @@ exports.signup = function(req, res){
 }
 
 exports.login = function(req, res){
-	var useremail = req.body.useremail
-		, password = req.body.password
-		, admin = req.body.admin
-		, renderlogin = function(){
+	var useremail 		= req.body.useremail
+		, password 		= req.body.password
+		, admin		 	= req.body.admin
+		, renderlogin 	= function(){
 			res.render('login',{config : config , err: false});
-		}
-		console.log(admin);
+		};
 
 	User.findOne({'userEmail': useremail},{},function (err, result){
 		if(err) console.log(err);

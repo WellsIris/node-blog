@@ -10,7 +10,8 @@ block dash
 			td 其他
 		each article in articles
 			tr 
-				td= article.title
+				td
+					a(href='/edit/#{article._id}')= article.title
 				td= article.auther
 				td= article.createTime
 				td= article.tagName
